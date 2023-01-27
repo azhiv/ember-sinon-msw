@@ -1,10 +1,20 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const webpack = require('webpack');
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
+    autoImport: {
+      webpack: {
+        plugins: [
+          // See explanation in audit-console/ember-cli-build.js
+          new webpack.DefinePlugin({
+            'process.env.NODE_DEBUG': 'false',
+          }),
+        ],
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
